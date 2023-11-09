@@ -56,27 +56,27 @@ function buildSquare(num) {
     cell.addEventListener('click', function () {
 
 
-    // mi si spacca qui - da rivedere nel pomeriggio    
+    // escono solo verdi :(   
 
-        // if(gameOver == true) { 
+        if(gameOver == true) { 
 
-        //     for (let i = 1; i <= 16; i++) {
+            for (let i = 1; i <= 16; i++) {
 
-        //         if(num == bomb[i]) {
-        //             cell.classList.toggle('bomb');
+                if(num == bomb[i]) {
+                    cell.classList.toggle('bomb');
         //             alert(`Game Over! Your score is ${points} points!`);
-        //             gameOver = false;
-        //             break;
-        //         }
-        //     }
+                    gameOver = false;
+                    break;
+                 }
+            }
 
             cell.classList.toggle('selected');
-        //     points += 1;
-        //     console.log(points);
+            points += 1;
+            console.log(points);
         
         // }else{
         //     alert("You won! CLick the play button to play again!");
-        // }
+         }
 
     });
     return cell;
