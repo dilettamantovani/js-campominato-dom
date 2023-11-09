@@ -4,8 +4,8 @@ let grid = document.getElementById('grid');
 let playBtn = document.getElementById('playBtn');
 let squareSize = '';
 let bomb = [];
-let gameOver = false;
 let points = 0;
+let game = false;
 
 // start game
 
@@ -13,13 +13,13 @@ playBtn.addEventListener('click', function () {
 
     console.log('Inizio partita');
 
-    gameOver = true;
+    game = true;
     points = 0;
 
     // void
     grid.innerHTML = '';
 
-    // set difficulty level
+    // set difficulty
     if(difficultyLevel.value == 'easy') {
         cellNum = 100;
         squareSize = 'squareEasy';
@@ -34,11 +34,11 @@ playBtn.addEventListener('click', function () {
     }
 
     for (let i = 1; i <= cellNum; i++) {
-        let oneCell = buildSquare(i);
+        let oneCell = buildSquare(i, bomb);
         grid.appendChild(oneCell);
 
         if(i < 16) {
-            bomb = Math.floor(Math.random() * cellNum);
+            bomb = Math.round(Math.random() * cellNum) + 1;
         }
     }
     
@@ -48,7 +48,7 @@ playBtn.addEventListener('click', function () {
 
 // buildSquare
 
-function buildSquare(num) {
+function buildSquare(num, bomb) {
     const cell = document.createElement('div');
     cell.classList.add(squareSize);
     cell.innerHTML = num;
@@ -56,16 +56,16 @@ function buildSquare(num) {
     cell.addEventListener('click', function () {
 
 
-    // escono solo verdi :(   
+    //  continuano ad uscire solo verdi :(  
 
-        if(gameOver == true) { 
+        if(game == true) { 
 
             for (let i = 1; i <= 16; i++) {
 
                 if(num == bomb[i]) {
                     cell.classList.toggle('bomb');
-        //             alert(`Game Over! Your score is ${points} points!`);
-                    gameOver = false;
+                    alert(`Game Over! Your score is ${points} points!`);
+                    game = false;
                     break;
                  }
             }
@@ -74,9 +74,9 @@ function buildSquare(num) {
             points += 1;
             console.log(points);
         
-        // }else{
-        //     alert("You won! CLick the play button to play again!");
-         }
+        }else{
+            alert("You won! CLick the play button to play again!");
+        }
 
     });
     return cell;
